@@ -20,5 +20,10 @@
     <string name="fab_content_description">Navigate forward</string>
     <string name="btn_camera">Take a Photo</string>
     <string name="btn_gallery">Choose from Gallery</string>
-    <string name="btn_analysis">Analysis</string>
+    <string name="btn_analysis">Analyze</string>
+    <string name="season">Season</string>
+    <string name="analysis_user">Analysis User</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="address">Address</string>
 </resources>
