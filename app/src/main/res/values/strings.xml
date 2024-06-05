@@ -11,4 +11,11 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
     <string name="register_head">Here’s \nyour first\nstep with\nus!</string>
+    <string name="wellcome_app_1">Wellcome To WarnaKu</string>
+    <string name="wellcome_app_2">AI-Powered Color Analysis</string>
+    <string name="wellcome_app_3">Personalized Recommendations</string>
+    <string name="wellcome_message_1">Discover your perfect colors with WarnaKu, the ultimate color analysis app powered by advanced AI technology.</string>
+    <string name="wellcome_message_2">Our state-of-the-art AI analyzes your skin tone, hair color, and personal preferences to recommend the most flattering colors.</string>
+    <string name="wellcome_message_3">Get suggestions for clothing, makeup, and accessories to elevate your style.</string>
+    <string name="fab_content_description">Navigate forward</string>
 </resources>
