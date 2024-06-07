@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -14,6 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "API_URL", "\"https://warnaku-backend-api-v4ddwcs7mq-et.a.run.app/\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,6 +37,9 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        buildConfig = true
+        //noinspection DataBindingWithoutKapt
+        dataBinding = true
     }
 }
 
@@ -50,4 +55,26 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //bottom navigation
+    implementation("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.activity.ktx)
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    //glide
+    implementation (libs.glide)
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }

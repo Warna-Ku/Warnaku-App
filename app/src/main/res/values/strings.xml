@@ -26,4 +26,7 @@
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="address">Address</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="analysis">Analysis\n</string>
+    <string name="history">History</string>
 </resources>

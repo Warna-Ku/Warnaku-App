@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -11,15 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WarnakuApp"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
-            android:name=".AnalysisUserActivity"
+            android:name=".view.history.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".AnalysisActivity"
+            android:name=".view.analysis.AnalysisUserActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.analysis.AnalysisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".wellcome.WellcomeActivity"
             android:exported="false" />
         <activity
             android:name=".view.register.RegisterActivity"
@@ -28,8 +31,8 @@
             android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".wellcome.WellcomeActivity"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
