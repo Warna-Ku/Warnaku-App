@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WarnakuApp"
         tools:targetApi="31" >
         <activity
+            android:name=".view.result.ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.history.HistoryActivity"
             android:exported="false" />
         <activity
