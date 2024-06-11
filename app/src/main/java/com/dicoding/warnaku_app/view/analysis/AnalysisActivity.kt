@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.warnaku_app.databinding.ActivityAnalysisBinding
@@ -27,35 +26,34 @@ class AnalysisActivity : AppCompatActivity() {
         }
 
         binding.btnGallery.setOnClickListener {
-            startGallery()
+            openGallery()
         }
 
         binding.btnCamera.setOnClickListener {
-            startCamera()
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Receive the URI from CameraActivity
+        val uriString = intent.getStringExtra("captured_image_uri")
+        if (uriString != null) {
+            currentImageUri = Uri.parse(uriString)
+            binding.imageView.setImageURI(currentImageUri)
         }
     }
 
     private fun checkImage() {
         if (currentImageUri != null) {
             val intent = Intent(this, AnalysisUserActivity::class.java)
+            intent.putExtra("image_uri", currentImageUri.toString())
             startActivity(intent)
         } else {
             showToast("Please select an image before analyzing.")
         }
     }
 
-    private fun startCamera() {
-        // TODO: Not yet implemented
-    }
-
-    private fun startGallery() {
-        launcherGallery.launch(
-            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-        )
-    }
-
     private val launcherGallery = registerForActivityResult(
-        ActivityResultContracts.PickVisualMedia()
+        ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
@@ -64,6 +62,10 @@ class AnalysisActivity : AppCompatActivity() {
         } else {
             showToast("No image selected")
         }
+    }
+
+    private fun openGallery() {
+        launcherGallery.launch("image/*")
     }
 
     private fun showToast(message: String) {
