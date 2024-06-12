@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.login.LoginActivity">
+    tools:context=".view.register.RegisterActivity">
 
 
     <TextView
@@ -106,8 +106,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/confirm_password"
         app:endIconMode="password_toggle"
@@ -130,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rouded_edit_text"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="@string/register"
@@ -140,7 +140,31 @@
         app:layout_constraintStart_toStartOf="@+id/confPassEditTextLayout"
         app:layout_constraintTop_toBottomOf="@+id/confPassEditTextLayout" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/confPassEditTextLayout"
+        app:layout_constraintStart_toStartOf="@+id/confPassEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/confPassEditTextLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_account" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="toLogin"
+            android:paddingStart="5dp"
+            android:text="@string/login_now"
+            android:textColor="@color/design_default_color_primary"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:contentDescription="@string/image_desc"
@@ -150,6 +174,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passEditTextLayout"
         tools:layout_editor_absoluteX="0dp" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

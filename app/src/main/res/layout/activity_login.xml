@@ -79,7 +79,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -93,10 +93,11 @@
         tools:layout_editor_absoluteX="32dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_login"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/passEditTextLayout"
         app:layout_constraintStart_toStartOf="@+id/passEditTextLayout"
         app:layout_constraintTop_toBottomOf="@+id/passEditTextLayout">
@@ -110,9 +111,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="toRegister"
-            android:textColor="@color/design_default_color_primary"
             android:paddingStart="5dp"
             android:text="@string/register_now"
+            android:textColor="@color/design_default_color_primary"
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
 
@@ -128,6 +129,17 @@
         app:layout_constraintTop_toBottomOf="@+id/passEditTextLayout"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="50dp" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.317" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,4 +30,16 @@
     <string name="analysis">Analysis\n</string>
     <string name="history">History</string>
     <string name="textcam_guidence">Align your face within the oval outline</string>
+    <string name="image_item">image item</string>
+    <string name="contoh_nama">Contoh Nama</string>
+    <string name="contoh_hasil">Contoh Hasil</string>
+    <string name="title_signup">Registration Form</string>
+    <string name="required_field">input as required</string>
+    <string name="title_login"></string>
+    <string name="login_success_title_alert">Login successful!</string>
+    <string name="login_success_desc_alert">Welcome back, %1$s! You have successfully logged in.</string>
+    <string name="login_failed_title">Login Failed!</string>
+    <string name="login_now">Login now</string>
+    <string name="already_have_account">Already Have Account?</string>
+    <string name="passwords_do_not_match">Password do not match</string>
 </resources>

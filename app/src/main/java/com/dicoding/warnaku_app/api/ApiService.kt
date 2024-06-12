@@ -1,5 +1,6 @@
 package com.dicoding.warnaku_app.api
 
+import com.dicoding.warnaku_app.api.response.LoginResponse
 import com.dicoding.warnaku_app.api.response.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -15,12 +16,12 @@ interface ApiService {
         @Field("password") password: String
     ): RegisterResponse
 
-//    @FormUrlEncoded
-//    @POST("login")
-//    suspend fun login(
-//        @Field("email") email: String,
-//        @Field("password") password: String
-//    ): LoginResponse
+    @FormUrlEncoded
+    @POST("login")
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): LoginResponse
 //
 //    @GET("stories")
 //    suspend fun getStories(

@@ -81,4 +81,17 @@ dependencies {
     implementation(libs.androidx.camera.camera2)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
+
+    //circle image
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    //paging
+//    implementation(libs.androidx.paging.runtime.ktx)
+//    implementation(libs.androidx.room.paging)
+//    implementation(libs.androidx.room.ktx)
+
+    implementation("androidx.paging:paging-runtime-ktx:3.3.0")
+    implementation("androidx.room:room-paging:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
 }

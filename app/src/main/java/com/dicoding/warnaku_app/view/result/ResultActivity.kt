@@ -3,6 +3,8 @@ package com.dicoding.warnaku_app.view.result
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.databinding.ActivityResultBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -29,8 +31,12 @@ class ResultActivity : AppCompatActivity() {
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Colour"
-                1 -> tab.text = "Recommendation"
+                0 -> {
+//                    tab.view.background = ContextCompat.getDrawable(this, R.drawable.tab_selector)
+                }
+                1 -> {
+//                    tab.view.background = ContextCompat.getDrawable(this, R.drawable.tab_selector)
+                }
             }
         }.attach()
     }

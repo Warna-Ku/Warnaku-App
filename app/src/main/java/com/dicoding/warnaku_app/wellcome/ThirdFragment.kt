@@ -21,6 +21,7 @@ class ThirdFragment : Fragment() {
         fabNext.setOnClickListener {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()  // Pastikan WellcomeActivity juga ditutup
         }
 
         return view
