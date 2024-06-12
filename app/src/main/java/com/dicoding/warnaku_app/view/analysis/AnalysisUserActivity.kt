@@ -40,10 +40,26 @@ class AnalysisUserActivity : AppCompatActivity() {
                     show()
                 }
             } else {
-                val intent = Intent(this, ResultActivity::class.java).apply {
-                    putExtra("image_uri", imageUri.toString())
+                // Show confirmation dialog
+                AlertDialog.Builder(this).apply {
+                    setTitle("Confirm Data")
+                    setMessage("Name: $name\nPhone: $phone\nAddress: $address\n\nIs the information correct?")
+                    setPositiveButton("Yes") { dialog, _ ->
+                        val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
+                            putExtra("image_uri", imageUri.toString())
+                            putExtra("name", name)
+                            putExtra("phone", phone)
+                            putExtra("address", address)
+                        }
+                        startActivity(intent)
+                        dialog.dismiss()
+                    }
+                    setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    create()
+                    show()
                 }
-                startActivity(intent)
             }
         }
     }
