@@ -44,8 +44,9 @@ class AnalysisActivity : AppCompatActivity() {
 
     private fun checkImage() {
         if (currentImageUri != null) {
-            val intent = Intent(this, AnalysisUserActivity::class.java)
-            intent.putExtra("image_uri", currentImageUri.toString())
+            val intent = Intent(this, AnalysisUserActivity::class.java).apply {
+                putExtra("image_uri", currentImageUri.toString())
+            }
             startActivity(intent)
         } else {
             showToast("Please select an image before analyzing.")

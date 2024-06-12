@@ -8,9 +8,10 @@
     tools:context=".view.result.ResultActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/userImageResult"
         android:layout_width="match_parent"
         android:layout_height="450dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -41,6 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/userImageResult"
         tools:layout_editor_absoluteX="-26dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

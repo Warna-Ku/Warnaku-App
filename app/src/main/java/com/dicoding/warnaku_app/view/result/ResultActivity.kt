@@ -1,19 +1,29 @@
 package com.dicoding.warnaku_app.view.result
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
-import com.dicoding.warnaku_app.R
-import com.google.android.material.tabs.TabLayout
+import com.dicoding.warnaku_app.databinding.ActivityResultBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ResultActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityResultBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
+        binding = ActivityResultBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val viewPager: ViewPager2 = findViewById(R.id.viewPager)
-        val tabLayout: TabLayout = findViewById(R.id.tabLayout)
+        // Retrieve the URI from the intent
+        val uriString = intent.getStringExtra("image_uri")
+        if (uriString != null) {
+            val imageUri = Uri.parse(uriString)
+            binding.userImageResult.setImageURI(imageUri)
+        }
+
+        val viewPager = binding.viewPager
+        val tabLayout = binding.tabLayout
 
         viewPager.adapter = ViewPagerAdapter(this)
 
