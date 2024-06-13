@@ -31,7 +31,7 @@ class CameraActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        supportActionBar?.hide()
 
         // Initialize view binding
         binding = ActivityCameraBinding.inflate(layoutInflater)

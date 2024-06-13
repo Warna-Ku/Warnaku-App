@@ -3,8 +3,12 @@ package com.dicoding.warnaku_app.view.analysis
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.databinding.ActivityAnalysisUserBinding
 import com.dicoding.warnaku_app.view.result.ResultActivity
 
@@ -16,6 +20,13 @@ class AnalysisUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAnalysisUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.custom_action_bar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
+        titleTextView?.text = "Analysis User"
 
         // Retrieve the URI from the intent
         val uriString = intent.getStringExtra("image_uri")
@@ -61,6 +72,15 @@ class AnalysisUserActivity : AppCompatActivity() {
                     show()
                 }
             }
+        }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
