@@ -3,10 +3,12 @@ package com.dicoding.warnaku_app.view.analysis
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.databinding.ActivityAnalysisBinding
 
 class AnalysisActivity : AppCompatActivity() {
@@ -16,10 +18,15 @@ class AnalysisActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         binding = ActivityAnalysisBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.custom_action_bar)
+
+        val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
+        titleTextView?.text = "Analysis"
 
         binding.btnAnalyze.setOnClickListener {
             checkImage()
