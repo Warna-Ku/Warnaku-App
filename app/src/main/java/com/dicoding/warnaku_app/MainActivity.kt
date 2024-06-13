@@ -2,6 +2,8 @@ package com.dicoding.warnaku_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBar
@@ -11,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.dicoding.warnaku_app.databinding.ActivityMainBinding
 import com.dicoding.warnaku_app.view.analysis.AnalysisActivity
 import com.dicoding.warnaku_app.view.history.HistoryActivity
+import com.dicoding.warnaku_app.view.setting.SettingActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 
 class MainActivity : AppCompatActivity() {
@@ -61,4 +64,22 @@ class MainActivity : AppCompatActivity() {
             show(DASHBOARD)
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingActivity::class.java)
+                intent.putExtra("fromMainActivity", true)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }
