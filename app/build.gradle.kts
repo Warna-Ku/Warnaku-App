@@ -57,7 +57,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //bottom navigation
-    implementation("com.github.qamarelsafadi:CurvedBottomNavigation:0.1.3")
+    implementation(libs.curvedbottomnavigation)
 
     //datastore
     implementation(libs.androidx.datastore.preferences)
@@ -83,15 +83,14 @@ dependencies {
     implementation(libs.camera.view)
 
     //circle image
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circleimageview)
 
     //paging
-//    implementation(libs.androidx.paging.runtime.ktx)
-//    implementation(libs.androidx.room.paging)
-//    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.room.ktx)
 
-    implementation("androidx.paging:paging-runtime-ktx:3.3.0")
-    implementation("androidx.room:room-paging:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+    //
 
+    implementation("com.etebarian:meow-bottom-navigation:1.3.1")
 }

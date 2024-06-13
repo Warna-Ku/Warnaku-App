@@ -17,24 +17,10 @@ interface ApiService {
     ): RegisterResponse
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("users/login")
     suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
-//
-//    @GET("stories")
-//    suspend fun getStories(
-//        @Header("Authorization") token: String? = null
-//    ): StoryResponse
-//
-//    @Multipart
-//    @POST("stories")
-//    suspend fun uploadStory(
-//        @Part file: MultipartBody.Part,
-//        @Part("description") description: RequestBody,
-//        @Part("lat") lat: Float?,
-//        @Part("lon") lon: Float?
-//    ): UploadStoryResponse
 
 }

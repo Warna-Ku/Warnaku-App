@@ -2,6 +2,8 @@ package com.dicoding.warnaku_app.view.result
 
 import android.net.Uri
 import android.os.Bundle
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.dicoding.warnaku_app.R
@@ -16,6 +18,12 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.custom_action_bar)
+
+        val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
+        titleTextView?.text = "Result"
 
         // Retrieve the URI from the intent
         val uriString = intent.getStringExtra("image_uri")

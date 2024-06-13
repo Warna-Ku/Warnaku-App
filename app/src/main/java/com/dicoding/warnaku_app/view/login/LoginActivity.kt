@@ -29,18 +29,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        setupView()
         setupViewModel()
         setupAction()
         playAnimation()
 
-    }
-
-    private fun setupView() {
-        supportActionBar?.apply {
-            title = getString(R.string.title_login)
-            setDisplayHomeAsUpEnabled(true)
-        }
     }
 
     private fun setupViewModel() {
@@ -70,8 +62,8 @@ class LoginActivity : AppCompatActivity() {
                             is FetchResult.Success -> {
                                 binding.progressBar.visibility = View.GONE
                                 binding.button.isClickable = true
-                                val token = result.data.data?.token ?: ""
-                                val name = result.data.data?.email ?: ""
+                                val token = result.data.loginResult?.token ?: ""
+                                val name = result.data.loginResult?.name ?: ""
                                 loginViewModel.updateUserName(name)
                                 loginViewModel.saveToken(token)
                                 showAlertDialog(true)
@@ -96,14 +88,8 @@ class LoginActivity : AppCompatActivity() {
         }.start()
 
         val title = ObjectAnimator.ofFloat(binding.textView, View.ALPHA, 1f).setDuration(100)
-//        val message =
-//            ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
-//        val emailTextView =
-//            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
         val emailEditTextLayout =
             ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-//        val passwordTextView =
-//            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout =
             ObjectAnimator.ofFloat(binding.passEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val login = ObjectAnimator.ofFloat(binding.button, View.ALPHA, 1f).setDuration(100)
@@ -111,10 +97,7 @@ class LoginActivity : AppCompatActivity() {
         AnimatorSet().apply {
             playSequentially(
                 title,
-//                message,
-//                emailTextView,
                 emailEditTextLayout,
-//                passwordTextView,
                 passwordEditTextLayout,
                 login
             )

@@ -44,7 +44,7 @@ class UserRepository private constructor(
         } catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(response, RegisterResponse::class.java)
-            emit(FetchResult.Error(error.msg))
+            emit(FetchResult.Error(error.message))
         } catch (e: Exception) {
             emit(FetchResult.Error(e.message.toString()))
         } finally {
@@ -61,7 +61,7 @@ class UserRepository private constructor(
         } catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(response, LoginResponse::class.java)
-            emit(FetchResult.Error(error.msg))
+            emit(FetchResult.Error(error.message))
         } catch (e: Exception) {
             emit(FetchResult.Error(e.message.toString()))
         } finally {
@@ -74,105 +74,7 @@ class UserRepository private constructor(
     suspend fun loginPref() = userPreference.loginPref()
 
     fun getLoginStatus() = userPreference.getLoginStatus()
-//
-//    fun uploadStory(
-//        context: Context,
-//        file: File?,
-//        description: String,
-//        lat: Float? = null,
-//        lon: Float? = null
-//    ): LiveData<FetchResult<UploadStoryResponse>> = liveData {
-//        emit(FetchResult.Loading)
-//        try {
-//            val token = runBlocking { userPreference.getToken().first() }
-//            apiService = ApiConfig.getApiService(token.toString())
-//            if (file != null) {
-//                val files = file.reduceFileImage()
-//                val desc = description.toRequestBody("text/plain".toMediaType())
-//                val imageFile = files.asRequestBody("image/jpeg".toMediaType())
-//                val imageMultipart = MultipartBody.Part.createFormData("photo", files.name, imageFile)
-//                val response = apiService.uploadStory(imageMultipart, desc, lat, lon)
-//                emit(FetchResult.Success(response))
-//            } else {
-//                emit(FetchResult.Error(context.getString(R.string.empty_image)))
-//            }
-//        } catch (e: HttpException) {
-//            val response = e.response()?.errorBody()?.string()
-//            val error = Gson().fromJson(response, UploadStoryResponse::class.java)
-//            emit(FetchResult.Error(error.message))
-//        } catch (e: Exception) {
-//            emit(FetchResult.Error(e.message.toString()))
-//        }
-//    }
-//
-//    suspend fun logout() = userPreference.logout()
-//
-//    fun getStoryPaging(): LiveData<PagingData<ListStoryItem>> {
-//        return liveData {
-//            val localCoroutineScope = CoroutineScope(Dispatchers.IO)
-//
-//            val tokenResult = try {
-//                userPreference.getToken().first()
-//            } catch (e: Exception) {
-//                null
-//            }
-//
-//            if (tokenResult != null) {
-//                emit(PagingData.empty())
-//                val token = tokenResult
-//                try {
-//                    apiService = ApiConfig.getApiService(token.toString())
-//                    val pager = Pager(
-//                        config = PagingConfig(
-//                            pageSize = 5
-//                        ),
-//                        pagingSourceFactory = {
-//                            StoryPagingSource(apiService)
-//                        }
-//                    )
-//                    val pagingData = pager.flow.cachedIn(localCoroutineScope)
-//                    pagingData.collect { data ->
-//                        emit(data)
-//                    }
-//                } catch (e: HttpException) {
-//
-//                } catch (e: Exception) {
-//
-//                }
-//            } else {
-//
-//            }
-//        }
-//    }
-//
-//
-//    fun getStoriesWithLocation(): LiveData<FetchResult<List<ListStoryItem>>> = liveData {
-//        emit(FetchResult.Loading)
-//        try {
-//            val token = runBlocking {
-//                userPreference.getToken().first()
-//            }
-//            val apiService = ApiConfig.getApiService(token.toString())
-//            val response = apiService.getStoriesWithLocation()
-//
-//            val stories: List<ListStoryItem>? = response.listStory?.filterNotNull()
-//
-//            if (stories != null) {
-//                emit(FetchResult.Success(stories))
-//            } else {
-//                emit(FetchResult.Error("No stories found"))
-//            }
-//
-//        } catch (e: HttpException) {
-//            val jsonInString = e.response()?.errorBody()?.string()
-//            val errorBody = Gson().fromJson(jsonInString, StoryResponse::class.java)
-//            emit(FetchResult.Error(errorBody.message))
-//        } catch (e: Exception) {
-//            Log.d("StoryRepository", "getAllStoriesWithLocation: ${e.message.toString()}")
-//            emit(FetchResult.Error(e.message.toString()))
-//        }
-//    }
-//
+
     companion object {
         @Volatile
         private var instance: UserRepository? = null
@@ -184,4 +86,5 @@ class UserRepository private constructor(
                 }
             }
     }
+    suspend fun logout() = userPreference.logout()
 }

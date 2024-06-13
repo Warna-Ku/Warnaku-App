@@ -3,10 +3,8 @@ package com.dicoding.warnaku_app.view.main
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.warnaku_app.GetViewModelFactory
 import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.databinding.ActivityMainBinding
@@ -16,6 +14,7 @@ import com.dicoding.warnaku_app.view.login.LoginActivity
 import com.dicoding.warnaku_app.wellcome.WellcomeActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import kotlinx.coroutines.launch
+import meow.bottomnavigation.MeowBottomNavigation
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -24,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
     companion object {
-        const val DASHBOARD = 1
-        const val ANALYSIS = 2
-        const val HISTORY = 3
+        val DASHBOARD = R.id.dashboard_action
+        val ANALYSIS = R.id.scan_action
+        val HISTORY = R.id.history_action
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +42,6 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.getLoginStatus().collect { isLoggedIn ->
                 if (isLoggedIn != true) {
-                    moveToLoginActivity()
-                } else {
                     checkWelcomePageStatus()
                 }
             }
@@ -60,6 +57,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, WellcomeActivity::class.java)
             startActivity(intent)
             finish()
+        }else{
+            moveToLoginActivity()
         }
         // Jika sudah melewati WelcomePage, lanjutkan di MainActivity
     }
@@ -71,39 +70,48 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
     private fun setUpBottomNavigation() {
         val bottomNavigationItems = mutableListOf(
-            CurvedBottomNavigation.Model(
-                DASHBOARD, getString(R.string.dashboard),
-                R.drawable.ic_home
-            ),
-            CurvedBottomNavigation.Model(
-                ANALYSIS, getString(R.string.analysis),
-                R.drawable.ic_analysis
-            ),
-            CurvedBottomNavigation.Model(
-                HISTORY, getString(R.string.history),
-                R.drawable.ic_history
-            ),
+            CurvedBottomNavigation.Model(DASHBOARD, getString(R.string.dashboard), R.drawable.home),
+            CurvedBottomNavigation.Model(ANALYSIS, getString(R.string.analysis), R.drawable.scan),
+            CurvedBottomNavigation.Model(HISTORY, getString(R.string.history), R.drawable.history),
         )
 
         binding.bottomNavigation.apply {
             bottomNavigationItems.forEach { add(it) }
             setOnClickMenuListener {
                 when (it.id) {
-                    DASHBOARD -> {
-                        startActivity(Intent(this@MainActivity, MainActivity::class.java))
-                    }
-                     ANALYSIS -> {
-                         startActivity(Intent(this@MainActivity, AnalysisActivity::class.java))
-                    }
-                    HISTORY -> {
-                        startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
-                    }
+                    DASHBOARD -> startActivityWithAnimation(Intent(this@MainActivity, MainActivity::class.java))
+                    ANALYSIS -> startActivityWithAnimation(Intent(this@MainActivity, AnalysisActivity::class.java))
+                    HISTORY -> startActivityWithAnimation(Intent(this@MainActivity, HistoryActivity::class.java))
                 }
             }
             show(DASHBOARD)
         }
+    }
+
+//    private fun setUpBottomNavigation() {
+//        val bottomNavigationItems = mutableListOf(
+//            CurvedBottomNavigation.Model(DASHBOARD, getString(R.string.dashboard), R.drawable.home),
+//            CurvedBottomNavigation.Model(ANALYSIS, getString(R.string.analysis), R.drawable.scan),
+//            CurvedBottomNavigation.Model(HISTORY, getString(R.string.history), R.drawable.history),
+//        )
+//
+//        binding.bottomNavigation.apply {
+//            bottomNavigationItems.forEach { add(it) }
+//            setOnClickMenuListener {
+//                when (it.id) {
+//                    DASHBOARD -> startActivityWithAnimation(Intent(this@MainActivity, MainActivity::class.java))
+//                    ANALYSIS -> startActivityWithAnimation(Intent(this@MainActivity, AnalysisActivity::class.java))
+//                    HISTORY -> startActivityWithAnimation(Intent(this@MainActivity, HistoryActivity::class.java))
+//                }
+//            }
+//            show(DASHBOARD)
+//        }
+//    }
+
+    private fun startActivityWithAnimation(intent: Intent) {
+        startActivity(intent)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

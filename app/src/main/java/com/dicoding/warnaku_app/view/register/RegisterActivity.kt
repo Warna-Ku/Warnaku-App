@@ -29,17 +29,9 @@ class RegisterActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        setupView()
         setupViewModel()
         setupAction()
         playAnimation()
-    }
-
-    private fun setupView() {
-        supportActionBar?.apply {
-            title = getString(R.string.title_signup)
-            setDisplayHomeAsUpEnabled(true)
-        }
     }
 
     private fun setupViewModel() {
@@ -99,29 +91,23 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_Y, -30f, 30f).apply {
             duration = 6000
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
         val title = ObjectAnimator.ofFloat(binding.textView, View.ALPHA, 1f).setDuration(100)
-//        val nameTextView = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
         val nameEditTextLayout = ObjectAnimator.ofFloat(binding.unameEditTextLayout, View.ALPHA, 1f).setDuration(100)
-//        val emailTextView = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
         val emailEditTextLayout = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-//        val passwordTextView = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
         val passwordEditTextLayout = ObjectAnimator.ofFloat(binding.passEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val register = ObjectAnimator.ofFloat(binding.button, View.ALPHA, 1f).setDuration(100)
 
         AnimatorSet().apply {
             playSequentially(
                 title,
-//                nameTextView,
                 nameEditTextLayout,
-//                emailTextView,
                 emailEditTextLayout,
-//                passwordTextView,
                 passwordEditTextLayout,
                 register
             )
@@ -132,15 +118,15 @@ class RegisterActivity : AppCompatActivity() {
     private fun showAlertDialog(isSuccess: Boolean, errorMessage: String? = null) {
         val builder = AlertDialog.Builder(this)
         if (isSuccess) {
-            builder.setTitle(getString(R.string.title_signup))
-            builder.setMessage(getString(R.string.email))
+            builder.setTitle(getString(R.string.title_register_success))
+            builder.setMessage(getString(R.string.register_msg_success))
             builder.setPositiveButton(getString(R.string.title_login)) { _, _ ->
                 moveToLoginActivity()
             }.setOnCancelListener {
                 moveToLoginActivity()
             }.create().show()
         } else {
-            builder.setTitle(getString(R.string.title_signup))
+            builder.setTitle(getString(R.string.error_register))
             builder.setMessage(errorMessage)
             builder.setPositiveButton("OK") { _, _ -> }.create().show()
         }

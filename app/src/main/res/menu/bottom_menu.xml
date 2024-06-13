@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard_action"
+        android:title="@string/dashboard"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/scan_action"
+        android:title="@string/analysis"
+        android:icon="@drawable/scan"/>
+    <item
+        android:id="@+id/history_action"
+        android:title="@string/history"
+        android:icon="@drawable/history"/>
+
+</menu>
