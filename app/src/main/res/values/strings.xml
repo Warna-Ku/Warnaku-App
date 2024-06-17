@@ -30,12 +30,15 @@
     <string name="analysis">Analysis\n</string>
     <string name="history">History</string>
     <string name="textcam_guidence">Align your face within the oval outline</string>
+<<<<<<<<< Temporary merge branch 1
     <string name="settings">Settings</string>
+=========
     <string name="image_item">image item</string>
     <string name="contoh_nama">Contoh Nama</string>
     <string name="contoh_hasil">Contoh Hasil(telp)</string>
     <string name="title_register">Registration Success</string>
     <string name="required_field">input as required</string>
+    <string name="title_login"></string>
     <string name="login_success_title_alert">Login successful!</string>
     <string name="login_success_desc_alert">Welcome back, %1$s! You have successfully logged in.</string>
     <string name="login_failed_title">Login Failed!</string>
