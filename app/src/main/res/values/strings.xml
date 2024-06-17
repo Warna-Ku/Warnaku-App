@@ -36,6 +36,7 @@
     <string name="contoh_hasil">Contoh Hasil(telp)</string>
     <string name="title_register">Registration Success</string>
     <string name="required_field">input as required</string>
+    <string name="title_login"></string>
     <string name="login_success_title_alert">Login successful!</string>
     <string name="login_success_desc_alert">Welcome back, %1$s! You have successfully logged in.</string>
     <string name="login_failed_title">Login Failed!</string>
@@ -45,5 +46,8 @@
     <string name="error_register">Oops!</string>
     <string name="register_msg_success">You have successfully registered. Welcome to our app!</string>
     <string name="title_register_success">Registration Successful</string>
-    <string name="title_login" />
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Are you sure you want to logout?</string>
+    <string name="logout_positive">Yes</string>
+    <string name="logout_negative">No</string>
 </resources>

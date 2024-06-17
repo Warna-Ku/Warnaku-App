@@ -38,7 +38,7 @@
             android:name=".view.analysis.AnalysisActivity"
             android:exported="false" />
         <activity
-            android:name=".wellcome.WellcomeActivity"
+            android:name=".view.wellcome.WellcomeActivity"
             android:exported="false" />
         <activity
             android:name=".view.register.RegisterActivity"

@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
         registerViewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
     }
 
-    private fun setupAction() {
+    private fun setupActionn() {
         binding.apply {
             button.setOnClickListener {
                 val name = unameEditText.text.toString()
@@ -67,6 +67,64 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
                 if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                    registerViewModel.register(name, email, password).observe(this@RegisterActivity) { result ->
+                        when (result) {
+                            is FetchResult.Loading -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                                binding.button.isClickable = false
+                            }
+                            is FetchResult.Success -> {
+                                binding.progressBar.visibility = View.GONE
+                                binding.button.isClickable = true
+                                showAlertDialog(true)
+                            }
+                            is FetchResult.Error -> {
+                                binding.progressBar.visibility = View.GONE
+                                binding.button.isClickable = true
+                                showAlertDialog(false, result.error)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupAction() {
+        binding.apply {
+            button.setOnClickListener {
+                val name = unameEditText.text.toString()
+                val email = emailEditText.text.toString()
+                val password = passEditText.text.toString()
+                val confPassword = confPassEditText.text.toString()
+
+                var isValid = true
+
+                if (name.isEmpty()) {
+                    unameEditText.error = getString(R.string.required_field)
+                    isValid = false
+                }
+                if (email.isEmpty()) {
+                    emailEditText.error = getString(R.string.required_field)
+                    isValid = false
+                }
+                if (password.isEmpty()) {
+                    passEditText.error = getString(R.string.required_field)
+                    isValid = false
+                }
+                if (confPassword.isEmpty()) {
+                    confPassEditText.error = getString(R.string.required_field)
+                    isValid = false
+                }
+
+                if (password.isNotEmpty() && confPassword.isNotEmpty()) {
+                    if (password != confPassword) {
+                        confPassEditText.error = getString(R.string.passwords_do_not_match)
+                        isValid = false
+                    }
+                }
+
+                if (isValid) {
                     registerViewModel.register(name, email, password).observe(this@RegisterActivity) { result ->
                         when (result) {
                             is FetchResult.Loading -> {
