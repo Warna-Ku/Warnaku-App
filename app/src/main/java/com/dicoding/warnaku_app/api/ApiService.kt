@@ -1,5 +1,6 @@
 package com.dicoding.warnaku_app.api
 
+import com.dicoding.warnaku_app.api.response.AnalysisResponse
 import com.dicoding.warnaku_app.api.response.LoginResponse
 import com.dicoding.warnaku_app.api.response.RegisterResponse
 import retrofit2.http.Field
@@ -23,4 +24,9 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
+
+    @POST("/image-analyze")
+    suspend fun getAnalysis(
+        @Field("image_uri") imageUri: String
+    ): AnalysisResponse
 }
