@@ -3,18 +3,16 @@ package com.dicoding.warnaku_app.view.wellcome
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.view.login.LoginActivity
+import com.dicoding.warnaku_app.view.wellcome.ViewPagerAdapter
 
 class WellcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContentView(R.layout.activity_wellcome)
 
 //        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
