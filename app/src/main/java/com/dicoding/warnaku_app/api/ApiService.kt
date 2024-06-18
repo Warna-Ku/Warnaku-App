@@ -1,5 +1,6 @@
 package com.dicoding.warnaku_app.api
 
+import com.dicoding.warnaku_app.api.response.CustomersResponse
 import com.dicoding.warnaku_app.api.response.AnalysisResponse
 import com.dicoding.warnaku_app.api.response.CustomerResponse
 import com.dicoding.warnaku_app.api.response.LoginResponse
@@ -24,6 +25,12 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
+
+    @FormUrlEncoded
+    @POST("customers/history")
+    suspend fun getCustomers(
+        @Field("workerID") workerID: String
+    ): CustomersResponse
 
 
     @POST("/image-analyze")

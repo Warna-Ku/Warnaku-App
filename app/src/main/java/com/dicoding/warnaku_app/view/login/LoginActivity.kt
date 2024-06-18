@@ -64,8 +64,10 @@ class LoginActivity : AppCompatActivity() {
                                 binding.button.isClickable = true
                                 val token = result.data.loginResult?.token ?: ""
                                 val name = result.data.loginResult?.name ?: ""
+                                val uid = result.data.loginResult?.uid ?: ""
                                 loginViewModel.updateUserName(name)
                                 loginViewModel.saveToken(token)
+                                loginViewModel.saveUID(uid)
                                 showAlertDialog(true)
                             }
                             is FetchResult.Error -> {

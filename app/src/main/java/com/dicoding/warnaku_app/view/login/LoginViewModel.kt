@@ -25,6 +25,13 @@ class LoginViewModel(private val repository: UserRepository): ViewModel() {
         }
     }
 
+    fun saveUID(uid: String) {
+        viewModelScope.launch {
+            repository.saveUID(uid)
+            repository.loginPref()
+        }
+    }
+
     fun updateUserName(name: String) {
         _userName.value = name
     }

@@ -19,6 +19,9 @@ import com.dicoding.warnaku_app.view.wellcome.WellcomeActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import kotlinx.coroutines.launch
 import meow.bottomnavigation.MeowBottomNavigation
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -46,6 +49,12 @@ class MainActivity : AppCompatActivity() {
         val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
         titleTextView?.text = "Dashboard"
 
+        // Get the current date
+        val currentDate = getCurrentDate()
+
+        // Set the current date to the TextView
+        binding.tvCurrentDate.text = currentDate
+
         binding.logoutButton.setOnClickListener {
             val alertBuilder = AlertDialog.Builder(this)
             alertBuilder.setTitle(getString(R.string.logout_title))
@@ -61,6 +70,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
     private fun checkLoginStatus() {
         lifecycleScope.launch {
             viewModel.getLoginStatus().collect { isLoggedIn ->

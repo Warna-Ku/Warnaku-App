@@ -73,6 +73,8 @@ class UserRepository private constructor(
 
     suspend fun saveToken(token: String) = userPreference.saveToken(token)
 
+    suspend fun saveUID(uid: String) = userPreference.saveUID(uid)
+
     suspend fun loginPref() = userPreference.loginPref()
 
     fun getLoginStatus() = userPreference.getLoginStatus()

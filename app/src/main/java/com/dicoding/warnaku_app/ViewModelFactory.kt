@@ -4,12 +4,20 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.storyapp.di.Injection
+import com.dicoding.warnaku_app.data.UserPreference
+import com.dicoding.warnaku_app.data.dataStore
+import com.dicoding.warnaku_app.data.repository.CustomerRepository
 import com.dicoding.warnaku_app.data.repository.UserRepository
+import com.dicoding.warnaku_app.view.history.HistoryViewModel
 import com.dicoding.warnaku_app.view.login.LoginViewModel
 import com.dicoding.warnaku_app.view.main.MainViewModel
 import com.dicoding.warnaku_app.view.register.RegisterViewModel
 
-class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(
+    private val repository: UserRepository,
+    private val historyRepository: CustomerRepository,
+    private val userPreference: UserPreference
+) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -23,12 +31,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
             }
-//            modelClass.isAssignableFrom(UploadStoryViewModel::class.java) -> {
-//                UploadStoryViewModel(repository) as T
-//            }
-//            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
-//                MapsViewModel(repository) as T
-//            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(historyRepository,userPreference) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
@@ -38,12 +43,12 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
         private var INSTANCE: ViewModelFactory? = null
         @JvmStatic
         fun getInstance(context: Context): ViewModelFactory {
-            if (INSTANCE == null) {
-                synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(Injection.provideRepository(context))
-                }
+            return INSTANCE ?: synchronized(ViewModelFactory::class.java) {
+                val userRepo = Injection.provideUserRepository(context)
+                val historyRepo = Injection.provideHistoryRepository(context)
+                val userPref = UserPreference.getInstance(context.dataStore)
+                ViewModelFactory(userRepo, historyRepo, userPref).also { INSTANCE = it }
             }
-            return INSTANCE as ViewModelFactory
         }
     }
 }
