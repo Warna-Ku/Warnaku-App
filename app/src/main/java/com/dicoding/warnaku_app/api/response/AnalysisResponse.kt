@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class AnalysisResponse(
 
-	@field:SerializedName("data")
-	val data: Data? = null,
+	@field:SerializedName("resultAnalysis")
+	val resultAnalysis: ResultAnalysis? = null,
 
 	@field:SerializedName("error")
 	val error: Boolean? = null,
@@ -14,35 +14,68 @@ data class AnalysisResponse(
 	val message: String? = null
 )
 
-data class Data(
-
-	@field:SerializedName("Colors")
-	val colors: List<ColorsItem?>? = null,
-
-	@field:SerializedName("PalImg")
-	val palImg: String? = null,
-
-	@field:SerializedName("PalDesc")
-	val palDesc: String? = null,
-
-	@field:SerializedName("created")
-	val created: String? = null,
-
-	@field:SerializedName("user_palette")
-	val userPalette: String? = null
-)
-
 data class ColorsItem(
 
-	@field:SerializedName("Desc")
-	val desc: String? = null,
+	@field:SerializedName("image")
+	val image: String? = null,
 
-	@field:SerializedName("Img")
-	val img: String? = null,
-
-	@field:SerializedName("Code")
+	@field:SerializedName("code")
 	val code: String? = null,
 
-	@field:SerializedName("Name")
-	val name: String? = null
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("description")
+	val description: String? = null
+)
+
+data class Customer(
+
+	@field:SerializedName("address")
+	val address: String? = null,
+
+	@field:SerializedName("phone")
+	val phone: String? = null,
+
+	@field:SerializedName("fullname")
+	val fullname: String? = null,
+
+	@field:SerializedName("email")
+	val email: String? = null
+)
+
+data class Worker(
+
+	@field:SerializedName("uid")
+	val uid: String? = null,
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("email")
+	val email: String? = null
+)
+
+data class ResultAnalysis(
+
+	@field:SerializedName("createdAt")
+	val createdAt: String? = null,
+
+	@field:SerializedName("season")
+	val season: String? = null,
+
+	@field:SerializedName("worker")
+	val worker: Worker? = null,
+
+	@field:SerializedName("colors")
+	val colors: List<ColorsItem?>? = null,
+
+	@field:SerializedName("paletteDescription")
+	val paletteDescription: String? = null,
+
+	@field:SerializedName("paletteImg")
+	val paletteImg: String? = null,
+
+	@field:SerializedName("customer")
+	val customer: Customer? = null
 )
