@@ -1,14 +1,16 @@
 package com.dicoding.warnaku_app.view.result
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.databinding.ActivityResultBinding
-import com.google.android.material.tabs.TabLayoutMediator
+import com.dicoding.warnaku_app.view.main.MainActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class ResultActivity : AppCompatActivity() {
 
@@ -32,20 +34,18 @@ class ResultActivity : AppCompatActivity() {
             binding.userImageResult.setImageURI(imageUri)
         }
 
-        val viewPager = binding.viewPager
-        val tabLayout = binding.tabLayout
-
-        viewPager.adapter = ViewPagerAdapter(this)
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when (position) {
-                0 -> {
-//                    tab.view.background = ContextCompat.getDrawable(this, R.drawable.tab_selector)
-                }
-                1 -> {
-//                    tab.view.background = ContextCompat.getDrawable(this, R.drawable.tab_selector)
-                }
+        binding.btnBackDashboard.setOnClickListener {
+            Intent(this, MainActivity::class.java).also {
+                startActivity(it)
+                finish()
             }
-        }.attach()
+        }
+    }
+
+    fun showBottomSheet(view: View) {
+        val showResult = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottomsheet, null)
+        showResult.setContentView(view)
+        showResult.show()
     }
 }
