@@ -22,7 +22,6 @@
     <string name="btn_gallery">Choose from Gallery</string>
     <string name="btn_analysis">Analyze</string>
     <string name="season">Season</string>
-    <string name="analysis_user">Analysis User</string>
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="address">Address</string>
@@ -50,4 +49,5 @@
     <string name="logout_message">Are you sure you want to logout?</string>
     <string name="logout_positive">Yes</string>
     <string name="logout_negative">No</string>
+    <string name="fill">Fill in customer data</string>
 </resources>

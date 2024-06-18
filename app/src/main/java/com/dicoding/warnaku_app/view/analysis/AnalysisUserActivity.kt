@@ -1,5 +1,6 @@
 package com.dicoding.warnaku_app.view.analysis
 
+import android.widget.Toast
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -36,44 +37,72 @@ class AnalysisUserActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val phone = binding.phoneEditText.text.toString()
-            val address = binding.addressEditText.text.toString()
-
-            if (name.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-                AlertDialog.Builder(this).apply {
-                    setTitle("Failed to analyze User")
-                    setMessage("Please fill in all fields")
-                    setPositiveButton("OK") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    create()
-                    show()
-                }
-            } else {
-                // Show confirmation dialog
-                AlertDialog.Builder(this).apply {
-                    setTitle("Confirm Data")
-                    setMessage("Name: $name\nPhone: $phone\nAddress: $address\n\nIs the information correct?")
-                    setPositiveButton("Yes") { dialog, _ ->
-                        val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
-                            putExtra("image_uri", imageUri.toString())
-                            putExtra("name", name)
-                            putExtra("phone", phone)
-                            putExtra("address", address)
-                        }
-                        startActivity(intent)
-                        dialog.dismiss()
-                    }
-                    setNegativeButton("No") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    create()
-                    show()
-                }
-            }
+            onBtnNextClick()
         }
     }
+
+    private fun onBtnNextClick() {
+        val name = binding.nameEditText.text.toString()
+        val phone = binding.phoneEditText.text.toString()
+        val address = binding.addressEditText.text.toString()
+        val email = binding.emailEditText.text.toString()
+
+        if (areFieldsEmpty(name, phone, address, email)) {
+            showAlertDialog("Failed to analyze User", "Please fill in all fields")
+        } else if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+        } else {
+            showConfirmationDialog(name, phone, address, email)
+        }
+    }
+
+    private fun areFieldsEmpty(name: String, phone: String, address: String, email: String): Boolean {
+        return name.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty()
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun showAlertDialog(title: String, message: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            create()
+            show()
+        }
+    }
+
+    private fun showConfirmationDialog(name: String, phone: String, address: String, email: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("Confirm Data")
+            setMessage("Name: $name\nPhone: $phone\nAddress: $address\nEmail: $email\n\nIs the information correct?")
+            setPositiveButton("Yes") { dialog, _ ->
+                navigateToResultActivity(name, phone, address, email)
+                dialog.dismiss()
+            }
+            setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            create()
+            show()
+        }
+    }
+
+    private fun navigateToResultActivity(name: String, phone: String, address: String, email: String) {
+        val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
+            putExtra("image_uri", imageUri.toString())
+            putExtra("name", name)
+            putExtra("phone", phone)
+            putExtra("address", address)
+            putExtra("email", email)
+        }
+        startActivity(intent)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {

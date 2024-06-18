@@ -11,7 +11,7 @@
         android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/ic_place_holder"
         app:civ_border_color="@color/white"
         app:civ_border_width="2dp"
@@ -21,27 +21,17 @@
         tools:ignore="ImageContrastCheck" />
 
     <TextView
-        android:id="@+id/tv_season"
+        android:id="@+id/tv_fill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/season"
+        android:text="@string/fill"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image"
         tools:ignore="TextSizeCheck" />
-
-    <TextView
-        android:id="@+id/tv_analysis_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/analysis_user"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_season" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameEditTextLayout"
@@ -52,7 +42,7 @@
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_analysis_user"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fill"
         tools:alpha="100">
 
         <com.dicoding.warnaku_app.view.customview.MyEditText
@@ -109,15 +99,37 @@
             tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailEditTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressEditTextLayout"
+        tools:alpha="100">
+
+        <com.dicoding.warnaku_app.view.customview.MyEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#0277BD"
+            tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btn_next"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Next"
+        android:layout_marginTop="16dp"
+        android:text="@string/btn_analysis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout"
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <ProgressBar
