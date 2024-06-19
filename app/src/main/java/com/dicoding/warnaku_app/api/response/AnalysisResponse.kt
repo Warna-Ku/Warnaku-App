@@ -14,48 +14,6 @@ data class AnalysisResponse(
 	val message: String? = null
 )
 
-data class ColorsItem(
-
-	@field:SerializedName("image")
-	val image: String? = null,
-
-	@field:SerializedName("code")
-	val code: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("description")
-	val description: String? = null
-)
-
-data class Customer(
-
-	@field:SerializedName("address")
-	val address: String? = null,
-
-	@field:SerializedName("phone")
-	val phone: String? = null,
-
-	@field:SerializedName("fullname")
-	val fullname: String? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null
-)
-
-data class Worker(
-
-	@field:SerializedName("uid")
-	val uid: String? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null
-)
-
 data class ResultAnalysis(
 
 	@field:SerializedName("createdAt")

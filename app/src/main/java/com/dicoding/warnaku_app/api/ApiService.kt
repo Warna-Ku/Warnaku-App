@@ -2,7 +2,6 @@ package com.dicoding.warnaku_app.api
 
 import com.dicoding.warnaku_app.api.response.CustomersResponse
 import com.dicoding.warnaku_app.api.response.AnalysisResponse
-import com.dicoding.warnaku_app.api.response.CustomerResponse
 import com.dicoding.warnaku_app.api.response.LoginResponse
 import com.dicoding.warnaku_app.api.response.RegisterResponse
 import retrofit2.http.Field
@@ -46,5 +45,5 @@ interface ApiService {
         @Field("phone") phone: String,
         @Field("address") address: String,
         @Field("email") email: String
-    ): CustomerResponse
+    ): CustomersResponse
 }

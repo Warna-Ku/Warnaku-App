@@ -50,4 +50,6 @@
     <string name="logout_message">Are you sure you want to logout?</string>
     <string name="logout_positive">Yes</string>
     <string name="logout_negative">No</string>
+    <string name="item_telp">item telp</string>
+    <string name="fill_column">fill column below</string>
 </resources>
