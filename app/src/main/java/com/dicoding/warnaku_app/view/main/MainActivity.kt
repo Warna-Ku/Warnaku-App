@@ -3,6 +3,7 @@ package com.dicoding.warnaku_app.view.main
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -15,6 +16,7 @@ import com.dicoding.warnaku_app.databinding.ActivityMainBinding
 import com.dicoding.warnaku_app.view.analysis.AnalysisActivity
 import com.dicoding.warnaku_app.view.history.HistoryActivity
 import com.dicoding.warnaku_app.view.login.LoginActivity
+import com.dicoding.warnaku_app.view.setting.SettingActivity
 import com.dicoding.warnaku_app.view.wellcome.WellcomeActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
 import kotlinx.coroutines.launch
@@ -144,5 +146,9 @@ class MainActivity : AppCompatActivity() {
         finish()
 
         Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+    }
+
+    fun toSetting(view: View) {
+        startActivity(Intent(this@MainActivity,SettingActivity::class.java))
     }
 }
