@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bottom_round"
             android:padding="10dp"
+            android:onClick="toProfile"
             android:src="@drawable/user" />
 
         <Space

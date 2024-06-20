@@ -34,7 +34,6 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CustomersAdapter
     private lateinit var viewModel: HistoryViewModel
-    private val workerID = "worker_id_here"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +61,8 @@ class HistoryActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this, factory).get(HistoryViewModel::class.java)
 
-
-        viewModel.customers.observe(this, Observer { customers ->
-            customers?.let {
+        viewModel.analysisReports.observe(this, Observer { reports ->
+            reports?.let {
                 adapter.setData(it)
             }
         })
@@ -75,8 +73,9 @@ class HistoryActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.fetchCustomers()
+        viewModel.fetchAnalysisReports()
     }
+
     private fun setUpBottomNavigation() {
         val bottomNavigationItems = mutableListOf(
             CurvedBottomNavigation.Model(DASHBOARD, getString(R.string.dashboard), R.drawable.home),
@@ -101,6 +100,7 @@ class HistoryActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
+
     companion object {
         val DASHBOARD = R.id.dashboard_action
         val ANALYSIS = R.id.scan_action

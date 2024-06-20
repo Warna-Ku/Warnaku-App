@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     private val loginToken = stringPreferencesKey("token")
     private val loginUID = stringPreferencesKey("uid")
     private val loginStatus = booleanPreferencesKey("status")
+    private val customerID = intPreferencesKey("customer_id")
 
     suspend fun saveToken(token: String) {
         dataStore.edit { preferences ->
@@ -27,6 +29,12 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun saveUID(uid: String) {
         dataStore.edit { preferences ->
             preferences[loginUID] = uid
+        }
+    }
+
+    suspend fun saveCustomerID(id: Int) {
+        dataStore.edit { preferences ->
+            preferences[customerID] = id
         }
     }
 
@@ -47,9 +55,16 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             preferences[loginToken]
         }
     }
+
     fun getUID(): Flow<String?> {
         return dataStore.data.map { preferences ->
             preferences[loginUID]
+        }
+    }
+
+    fun getCustomerID(): Flow<Int?> {
+        return dataStore.data.map { preferences ->
+            preferences[customerID]
         }
     }
 

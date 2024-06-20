@@ -36,7 +36,7 @@ class ViewModelFactory(
                 HistoryViewModel(historyRepository,userPreference) as T
             }
             modelClass.isAssignableFrom(AnalysisUserViewModel::class.java) -> {
-                AnalysisUserViewModel(historyRepository) as T
+                AnalysisUserViewModel(historyRepository, userPreference) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

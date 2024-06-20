@@ -1,14 +1,15 @@
 package com.dicoding.warnaku_app.view.analysis
 
-import android.widget.Toast
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.warnaku_app.R
 import com.dicoding.warnaku_app.ViewModelFactory
@@ -32,54 +33,65 @@ class AnalysisUserActivity : AppCompatActivity() {
         val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
         titleTextView?.text = "Analysis User"
 
-        setupViewModel()
+        initializeViewModel()
+        setImage()
+        setupAnalyzeButton()
+    }
 
-        analysisUserViewModel.customerResponse.observe(this, { response ->
+    private fun initializeViewModel() {
+        val factory = ViewModelFactory.getInstance(this)
+        analysisUserViewModel = ViewModelProvider(this, factory)[AnalysisUserViewModel::class.java]
+
+        analysisUserViewModel.customerResponse.observe(this, Observer { response ->
             if (response != null && !response.error!!) {
                 Toast.makeText(this, "Customer created successfully", Toast.LENGTH_SHORT).show()
-                navigateToResultActivity(response.analysisReports?.firstOrNull()?.customer?.customerID)
+                navigateToResultActivity()
+            } else {
+                Log.e("AnalysisUserActivity", "Error in response: ${response?.error}")
             }
         })
 
-        analysisUserViewModel.error.observe(this, { errorMessage ->
+        analysisUserViewModel.error.observe(this, Observer { errorMessage ->
             errorMessage?.let {
                 Toast.makeText(this, "Failed to create customer: $it", Toast.LENGTH_SHORT).show()
+                Log.e("AnalysisUserActivity", "Error message: $it")
             }
         })
+    }
 
+    private fun setImage() {
         val uriString = intent.getStringExtra("image_uri")
         if (uriString != null) {
             imageUri = Uri.parse(uriString)
             binding.profileImage.setImageURI(imageUri)
         }
+    }
 
-        binding.btnNext.setOnClickListener {
-            onBtnNextClick()
+    private fun setupAnalyzeButton() {
+        binding.btnAnalyze.setOnClickListener {
+            val name = binding.nameEditText.text.toString()
+            val phone = binding.phoneEditText.text.toString()
+            val address = binding.addressEditText.text.toString()
+            val email = binding.emailEditText.text.toString()
+
+            if (validateInput(name, phone, address, email)) {
+                showConfirmationDialog(name, phone, address, email)
+            }
         }
     }
 
-    private fun setupViewModel() {
-        val factory = ViewModelFactory.getInstance(this)
-        analysisUserViewModel = ViewModelProvider(this, factory)[AnalysisUserViewModel::class.java]
-    }
-
-    private fun onBtnNextClick() {
-        val name = binding.nameEditText.text.toString()
-        val phone = binding.phoneEditText.text.toString()
-        val address = binding.addressEditText.text.toString()
-        val email = binding.emailEditText.text.toString()
-
-        if (areFieldsEmpty(name, phone, address, email)) {
-            showAlertDialog("Failed to analyze User", "Please fill in all fields")
-        } else if (!isValidEmail(email)) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
-        } else {
-            showConfirmationDialog(name, phone, address, email)
+    private fun validateInput(name: String, phone: String, address: String, email: String): Boolean {
+        return when {
+            name.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty() -> {
+                showAlertDialog("Failed to analyze User", "Please fill in all fields")
+                false
+            }
+            !isValidEmail(email) -> {
+                Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
         }
-    }
-
-    private fun areFieldsEmpty(name: String, phone: String, address: String, email: String): Boolean {
-        return name.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty()
     }
 
     private fun isValidEmail(email: String): Boolean {
@@ -118,25 +130,10 @@ class AnalysisUserActivity : AppCompatActivity() {
         analysisUserViewModel.createCustomer(name, phone, address, email)
     }
 
-    private fun navigateToResultActivity(customerID: Int?) {
-        if (customerID != null) {
-            val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
-                putExtra("image_uri", imageUri.toString())
-                putExtra("customer_id", customerID)
-            }
-            startActivity(intent)
-        } else {
-            Toast.makeText(this, "Customer ID is null", Toast.LENGTH_SHORT).show()
+    private fun navigateToResultActivity() {
+        val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
+            putExtra("image_uri", imageUri.toString())
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        startActivity(intent)
     }
 }

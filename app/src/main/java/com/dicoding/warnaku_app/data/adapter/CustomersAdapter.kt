@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.warnaku_app.R
+import com.dicoding.warnaku_app.api.response.AnalysisReportsItem
 import com.dicoding.warnaku_app.api.response.Customer
 import com.dicoding.warnaku_app.view.history.detail.DetailActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
-class CustomersAdapter(private var customers: List<Customer?>) : RecyclerView.Adapter<CustomersAdapter.CustomerViewHolder>() {
+class CustomersAdapter(private var analysisReports: List<AnalysisReportsItem?>) : RecyclerView.Adapter<CustomersAdapter.CustomerViewHolder>() {
 
     class CustomerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.item_nama)
@@ -23,14 +24,15 @@ class CustomersAdapter(private var customers: List<Customer?>) : RecyclerView.Ad
         val image: CircleImageView = itemView.findViewById(R.id.item_image)
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
         return CustomerViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
-        val customer = customers[position]
+        val analysisReport = analysisReports[position]
+        val customer = analysisReport?.customer
+
         holder.name.text = customer?.fullname
         holder.email.text = customer?.email
         holder.telp.text = customer?.phone
@@ -43,19 +45,21 @@ class CustomersAdapter(private var customers: List<Customer?>) : RecyclerView.Ad
                 putExtra("FULLNAME", customer?.fullname)
                 putExtra("EMAIL", customer?.email)
                 putExtra("PHONE", customer?.phone)
+                putExtra("ADDRESS", customer?.address)
                 putExtra("FACE_IMAGE_URL", customer?.faceImageURL)
+                putExtra("REPORT", analysisReport)
             }
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return customers.size
+        return analysisReports.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newCustomers: List<Customer?>) {
-        customers = newCustomers
+    fun setData(newAnalysisReports: List<AnalysisReportsItem?>) {
+        analysisReports = newAnalysisReports
         notifyDataSetChanged()
     }
 }

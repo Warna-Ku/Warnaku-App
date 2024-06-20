@@ -16,6 +16,7 @@ import com.dicoding.warnaku_app.databinding.ActivityMainBinding
 import com.dicoding.warnaku_app.view.analysis.AnalysisActivity
 import com.dicoding.warnaku_app.view.history.HistoryActivity
 import com.dicoding.warnaku_app.view.login.LoginActivity
+import com.dicoding.warnaku_app.view.profile.ProfileActivity
 import com.dicoding.warnaku_app.view.setting.SettingActivity
 import com.dicoding.warnaku_app.view.wellcome.WellcomeActivity
 import com.qamar.curvedbottomnaviagtion.CurvedBottomNavigation
@@ -150,5 +151,9 @@ class MainActivity : AppCompatActivity() {
 
     fun toSetting(view: View) {
         startActivity(Intent(this@MainActivity,SettingActivity::class.java))
+    }
+
+    fun toProfile(view: View) {
+        startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
     }
 }

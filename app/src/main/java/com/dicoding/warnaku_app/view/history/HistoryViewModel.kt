@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dicoding.warnaku_app.api.response.AnalysisReportsItem
 import com.dicoding.warnaku_app.api.response.Customer
 import com.dicoding.warnaku_app.data.UserPreference
 import com.dicoding.warnaku_app.data.repository.CustomerRepository
@@ -13,21 +14,21 @@ import kotlinx.coroutines.runBlocking
 
 class HistoryViewModel(private val repository: CustomerRepository, private val userPreference: UserPreference) : ViewModel() {
 
-    private val _customers = MutableLiveData<List<Customer?>>()
-    val customers: LiveData<List<Customer?>>
-        get() = _customers
+    private val _analysisReports = MutableLiveData<List<AnalysisReportsItem?>>()
+    val analysisReports: LiveData<List<AnalysisReportsItem?>>
+        get() = _analysisReports
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?>
         get() = _error
 
-    fun fetchCustomers() {
+    fun fetchAnalysisReports() {
         viewModelScope.launch {
             try {
                 val uid = userPreference.getUID().first() ?: ""
-                val response = repository.getCustomers(uid)
+                val response = repository.getAnalysisReports(uid)
                 if (response.error == false && response.analysisReports != null) {
-                    _customers.value = response.analysisReports.map { it?.customer }
+                    _analysisReports.value = response.analysisReports
                 } else {
                     _error.value = response.message
                 }

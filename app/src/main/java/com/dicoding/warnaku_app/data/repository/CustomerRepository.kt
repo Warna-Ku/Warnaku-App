@@ -7,7 +7,7 @@ import com.dicoding.warnaku_app.data.UserPreference
 
 class CustomerRepository(private val preferences: UserPreference, private val apiService: ApiService) {
 
-    suspend fun getCustomers(workerID: String): CustomersResponse {
+    suspend fun getAnalysisReports(workerID: String): CustomersResponse {
         return apiService.getCustomers(workerID)
     }
 
@@ -15,6 +15,8 @@ class CustomerRepository(private val preferences: UserPreference, private val ap
         val customer = Customer(fullname, phone, address, email)
         return apiService.createCustomer(customer)
     }
+
+    suspend fun saveCustomerID(customerID: Int) = preferences.saveCustomerID(customerID)
 
     companion object {
         @Volatile

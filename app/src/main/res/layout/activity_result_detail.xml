@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/glaucous"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.history.detail.result.ResultDetail">
+
+    <TextView
+        android:id="@+id/tv_season"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="season"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_result_season"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_season"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Result season here"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_season"
+        app:layout_constraintEnd_toEndOf="@id/tv_season"
+        app:layout_constraintStart_toStartOf="@id/tv_season"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/iv_color_pallete"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_result_season"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/color_pallete"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        app:layout_constraintTop_toBottomOf="@id/tv_result_season"
+        app:layout_constraintStart_toStartOf="@id/tv_result_season"
+        app:layout_constraintEnd_toEndOf="@id/tv_result_season" />
+
+    <TextView
+        android:id="@+id/tv_color_pallete"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_color_pallete"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Palet musim dingin menghadirkan keanggunan dan kemewahan dengan warna-warna seperti biru tua, putih salju, dan merah marun. Palet ini cocok untuk pernikahan yang memancarkan keindahan dan kemegahan dalam suasana yang elegan dan dingin."
+        android:textColor="@color/white"
+        tools:ignore="TextSizeCheck,TextContrastCheck"
+        app:layout_constraintTop_toBottomOf="@id/iv_color_pallete"
+        app:layout_constraintStart_toStartOf="@id/iv_color_pallete"
+        app:layout_constraintEnd_toEndOf="@id/iv_color_pallete" />
+
+    <TextView
+        android:id="@+id/tv_recommendation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_color_pallete"
+        android:gravity="center"
+        android:text="Recommendation"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tv_color_pallete"
+        app:layout_constraintStart_toStartOf="@id/tv_color_pallete"
+        app:layout_constraintEnd_toEndOf="@id/tv_color_pallete" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tv_recommendation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_recommendation"
+        tools:ignore="TextSizeCheck"
+        tools:listitem="@layout/item_colour" />
+</androidx.constraintlayout.widget.ConstraintLayout>
