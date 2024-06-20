@@ -8,6 +8,7 @@ import com.dicoding.warnaku_app.data.UserPreference
 import com.dicoding.warnaku_app.data.dataStore
 import com.dicoding.warnaku_app.data.repository.CustomerRepository
 import com.dicoding.warnaku_app.data.repository.UserRepository
+import com.dicoding.warnaku_app.view.analysis.AnalysisUserViewModel
 import com.dicoding.warnaku_app.view.history.HistoryViewModel
 import com.dicoding.warnaku_app.view.login.LoginViewModel
 import com.dicoding.warnaku_app.view.main.MainViewModel
@@ -33,6 +34,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
                 HistoryViewModel(historyRepository,userPreference) as T
+            }
+            modelClass.isAssignableFrom(AnalysisUserViewModel::class.java) -> {
+                AnalysisUserViewModel(historyRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

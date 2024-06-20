@@ -2,8 +2,10 @@ package com.dicoding.warnaku_app.api
 
 import com.dicoding.warnaku_app.api.response.CustomersResponse
 import com.dicoding.warnaku_app.api.response.AnalysisResponse
+import com.dicoding.warnaku_app.api.response.Customer
 import com.dicoding.warnaku_app.api.response.LoginResponse
 import com.dicoding.warnaku_app.api.response.RegisterResponse
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -40,10 +42,7 @@ interface ApiService {
     ): AnalysisResponse
 
     @POST("/customer")
-    suspend fun getCustomer(
-        @Field("fullname") fullname: String,
-        @Field("phone") phone: String,
-        @Field("address") address: String,
-        @Field("email") email: String
+    suspend fun createCustomer(
+        @Body customer: Customer
     ): CustomersResponse
 }

@@ -86,6 +86,9 @@ data class Customer(
 	@field:SerializedName("email")
 	val email: String? = null,
 
+	@field:SerializedName("customerID")
+	val customerID: Int? = null,
+
 	@field:SerializedName("faceImageURL")
 	val faceImageURL: String? = null
 ) : Parcelable

@@ -9,12 +9,15 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.warnaku_app.R
+import com.dicoding.warnaku_app.ViewModelFactory
 import com.dicoding.warnaku_app.databinding.ActivityAnalysisUserBinding
 import com.dicoding.warnaku_app.view.result.ResultActivity
 
 class AnalysisUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAnalysisUserBinding
+    private lateinit var analysisUserViewModel: AnalysisUserViewModel
     private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +32,21 @@ class AnalysisUserActivity : AppCompatActivity() {
         val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
         titleTextView?.text = "Analysis User"
 
-        // Retrieve the URI from the intent
+        setupViewModel()
+
+        analysisUserViewModel.customerResponse.observe(this, { response ->
+            if (response != null && !response.error!!) {
+                Toast.makeText(this, "Customer created successfully", Toast.LENGTH_SHORT).show()
+                navigateToResultActivity(response.analysisReports?.firstOrNull()?.customer?.customerID)
+            }
+        })
+
+        analysisUserViewModel.error.observe(this, { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(this, "Failed to create customer: $it", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         val uriString = intent.getStringExtra("image_uri")
         if (uriString != null) {
             imageUri = Uri.parse(uriString)
@@ -39,6 +56,11 @@ class AnalysisUserActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             onBtnNextClick()
         }
+    }
+
+    private fun setupViewModel() {
+        val factory = ViewModelFactory.getInstance(this)
+        analysisUserViewModel = ViewModelProvider(this, factory)[AnalysisUserViewModel::class.java]
     }
 
     private fun onBtnNextClick() {
@@ -81,7 +103,7 @@ class AnalysisUserActivity : AppCompatActivity() {
             setTitle("Confirm Data")
             setMessage("Name: $name\nPhone: $phone\nAddress: $address\nEmail: $email\n\nIs the information correct?")
             setPositiveButton("Yes") { dialog, _ ->
-                navigateToResultActivity(name, phone, address, email)
+                createCustomer(name, phone, address, email)
                 dialog.dismiss()
             }
             setNegativeButton("No") { dialog, _ ->
@@ -92,15 +114,20 @@ class AnalysisUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToResultActivity(name: String, phone: String, address: String, email: String) {
-        val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
-            putExtra("image_uri", imageUri.toString())
-            putExtra("name", name)
-            putExtra("phone", phone)
-            putExtra("address", address)
-            putExtra("email", email)
+    private fun createCustomer(name: String, phone: String, address: String, email: String) {
+        analysisUserViewModel.createCustomer(name, phone, address, email)
+    }
+
+    private fun navigateToResultActivity(customerID: Int?) {
+        if (customerID != null) {
+            val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
+                putExtra("image_uri", imageUri.toString())
+                putExtra("customer_id", customerID)
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Customer ID is null", Toast.LENGTH_SHORT).show()
         }
-        startActivity(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
