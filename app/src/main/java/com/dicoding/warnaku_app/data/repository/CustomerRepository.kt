@@ -16,6 +16,8 @@ class CustomerRepository(private val preferences: UserPreference, private val ap
         return apiService.createCustomer(customer)
     }
 
+    suspend fun saveCustomerID(customerID: Int) = preferences.saveCustomerID(customerID)
+
     companion object {
         @Volatile
         private var instance: CustomerRepository? = null

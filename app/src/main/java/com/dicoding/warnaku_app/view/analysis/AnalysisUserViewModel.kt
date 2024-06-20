@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.warnaku_app.api.response.CustomersResponse
+import com.dicoding.warnaku_app.data.UserPreference
 import com.dicoding.warnaku_app.data.repository.CustomerRepository
 import kotlinx.coroutines.launch
 
-class AnalysisUserViewModel(private val repository: CustomerRepository) : ViewModel() {
+class AnalysisUserViewModel(
+    private val repository: CustomerRepository,
+    private val userPreference: UserPreference
+) : ViewModel() {
 
     private val _customerResponse = MutableLiveData<CustomersResponse>()
     val customerResponse: LiveData<CustomersResponse> get() = _customerResponse
@@ -31,5 +35,10 @@ class AnalysisUserViewModel(private val repository: CustomerRepository) : ViewMo
             }
         }
     }
-}
 
+    private fun saveCustomerID(customerID: Int) {
+        viewModelScope.launch {
+            repository.saveCustomerID(customerID)
+        }
+    }
+}

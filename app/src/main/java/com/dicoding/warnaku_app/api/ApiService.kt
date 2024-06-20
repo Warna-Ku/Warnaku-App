@@ -41,7 +41,7 @@ interface ApiService {
         @Field("image") image: String
     ): AnalysisResponse
 
-    @POST("/customer")
+    @POST("/customers")
     suspend fun createCustomer(
         @Body customer: Customer
     ): CustomersResponse
