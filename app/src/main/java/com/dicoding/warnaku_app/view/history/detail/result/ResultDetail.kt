@@ -1,7 +1,10 @@
 package com.dicoding.warnaku_app.view.history.detail.result
 
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -21,6 +24,13 @@ class ResultDetail : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setCustomView(R.layout.custom_action_bar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
+        titleTextView?.text = "Result"
+
         val analysisReport: AnalysisReportsItem? = intent.getParcelableExtra("REPORT_DETAIL")
 
         binding.tvResultSeason.text = analysisReport?.season
@@ -31,5 +41,15 @@ class ResultDetail : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = ColorsAdapter(analysisReport?.colors ?: emptyList())
         binding.recyclerView.adapter = adapter
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
