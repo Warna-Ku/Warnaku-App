@@ -27,11 +27,15 @@ class ResultActivity : AppCompatActivity() {
         val titleTextView = supportActionBar?.customView?.findViewById<TextView>(R.id.action_bar_title)
         titleTextView?.text = "Result"
 
-        // Retrieve the URI from the intent
         val uriString = intent.getStringExtra("image_uri")
         if (uriString != null) {
             val imageUri = Uri.parse(uriString)
             binding.userImageResult.setImageURI(imageUri)
+        }
+
+        binding.btnShowResult.setOnClickListener {
+            val intent = Intent(this, ShowResultActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnBackDashboard.setOnClickListener {
@@ -40,12 +44,5 @@ class ResultActivity : AppCompatActivity() {
                 finish()
             }
         }
-    }
-
-    fun showBottomSheet(view: View) {
-        val showResult = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottomsheet, null)
-        showResult.setContentView(view)
-        showResult.show()
     }
 }
