@@ -28,6 +28,9 @@ class AnalysisUserViewModel(
                     _error.value = response.message
                 } else {
                     _customerResponse.value = response
+                    response.data?.let {
+                        it.customerID?.let { it1 -> saveCustomerID(it1) }
+                    }
                     _error.value = null
                 }
             } catch (e: Exception) {

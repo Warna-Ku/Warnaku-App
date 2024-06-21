@@ -133,6 +133,10 @@ class AnalysisUserActivity : AppCompatActivity() {
     private fun navigateToResultActivity() {
         val intent = Intent(this@AnalysisUserActivity, ResultActivity::class.java).apply {
             putExtra("image_uri", imageUri.toString())
+            putExtra("name", binding.nameEditText.text.toString())
+            putExtra("phone", binding.phoneEditText.text.toString())
+            putExtra("address", binding.addressEditText.text.toString())
+            putExtra("email", binding.emailEditText.text.toString())
         }
         startActivity(intent)
     }

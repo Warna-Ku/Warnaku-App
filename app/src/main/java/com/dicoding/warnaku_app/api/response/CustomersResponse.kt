@@ -13,6 +13,9 @@ data class CustomersResponse(
 	@field:SerializedName("message")
 	val message: String? = null,
 
+	@field:SerializedName("data")
+	val data: Customer? = null,
+
 	@field:SerializedName("analysisReports")
 	val analysisReports: List<AnalysisReportsItem?>? = null
 ) : Parcelable

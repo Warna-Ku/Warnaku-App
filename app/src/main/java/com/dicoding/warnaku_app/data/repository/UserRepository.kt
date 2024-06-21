@@ -10,12 +10,15 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.dicoding.warnaku_app.api.ApiService
 import com.dicoding.warnaku_app.api.response.LoginResponse
+import com.dicoding.warnaku_app.api.response.LoginResult
 import com.dicoding.warnaku_app.api.response.RegisterResponse
 import com.dicoding.warnaku_app.data.FetchResult
 import com.dicoding.warnaku_app.data.UserPreference
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -79,6 +82,19 @@ class UserRepository private constructor(
 
     fun getLoginStatus() = userPreference.getLoginStatus()
 
+    fun getLoginResult(): Flow<LoginResult?> {
+        return combine(
+            userPreference.getUID(),
+            userPreference.getToken(),
+            userPreference.getLoginStatus()
+        ) { uid, token, status ->
+            if (status == true) {
+                LoginResult(uid, null, token)
+            } else {
+                null
+            }
+        }
+    }
     companion object {
         @Volatile
         private var instance: UserRepository? = null

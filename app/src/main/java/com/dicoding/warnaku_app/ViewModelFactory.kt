@@ -12,12 +12,13 @@ import com.dicoding.warnaku_app.view.analysis.AnalysisUserViewModel
 import com.dicoding.warnaku_app.view.history.HistoryViewModel
 import com.dicoding.warnaku_app.view.login.LoginViewModel
 import com.dicoding.warnaku_app.view.main.MainViewModel
+import com.dicoding.warnaku_app.view.profile.ProfileViewModel
 import com.dicoding.warnaku_app.view.register.RegisterViewModel
 
 class ViewModelFactory(
     private val repository: UserRepository,
-    private val historyRepository: CustomerRepository,
-    private val userPreference: UserPreference
+    private val historyRepository: CustomerRepository? = null,
+    private val userPreference: UserPreference? = null
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -32,11 +33,14 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(repository) as T
             }
-            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) && historyRepository != null && userPreference != null -> {
                 HistoryViewModel(historyRepository,userPreference) as T
             }
-            modelClass.isAssignableFrom(AnalysisUserViewModel::class.java) -> {
+            modelClass.isAssignableFrom(AnalysisUserViewModel::class.java) && historyRepository != null && userPreference != null  -> {
                 AnalysisUserViewModel(historyRepository, userPreference) as T
+            }
+            modelClass.isAssignableFrom( ProfileViewModel ::class.java) -> {
+                ProfileViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
